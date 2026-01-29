@@ -1,0 +1,125 @@
+### Service Definition
+http://localhost:4004/odata/v4/CatalogService
+
+### Service Metadata
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+### Get All employee Data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSrv
+
+### Get Single employee Data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSrv/7a298419-4014-4cf0-aab9-fb54893a28fd
+
+### Post Single employee data - Create
+
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSrv
+Content-Type: application/json
+
+{
+
+  "nameFirst": "Prasenjit",
+  "nameMiddle": "Naha",
+  "nameLast": "Naha",
+  "nameInitials": null,
+  "sex": "M",
+  "language": "E",
+  "phoneNumber": "+1 453 543 567 ",
+  "email": "Prasenjit@itelo.info",
+  "loginName": "FALLF",
+  "Currency_code": "USD",
+  "salaryAmount": 85962,
+  "accountNumber": "8877665544",
+  "bankId": "12100035",
+  "bankName": "My Bank of San Francisco"
+}
+
+### PATCH Single employee data - Change
+###------Take the id which was created for new employee in last call
+
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSrv/7a298419-4014-4cf0-aab9-fb54893a28fd
+Content-Type: application/json
+
+{
+
+  "Currency_code": "EUR",
+  "salaryAmount": 10000000
+}
+
+###DELETE Single Employee data - remove
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSrv/7a298419-4014-4cf0-aab9-fb54893a28fd
+
+###GET All purchase orders
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet
+
+
+###GET Single purchase orders
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC2C052
+
+
+###GET PO and its items with lose coupling - $expand
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC2C052?$expand=Items
+
+
+###Pagigation - load data chunk by chunk - $top , $skip
+http://localhost:4004/odata/v4/CatalogService/EmployeeSrv?$top=2&$skip=2
+
+
+###Total Count of POs
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/$count
+
+
+###Filtering data of Employee
+http://localhost:4004/odata/v4/CatalogService/EmployeeSrv?$filter=bankName eq 'My Bank of New York'
+
+
+###Filtering data of Employee - pattern filters
+http://localhost:4004/odata/v4/CatalogService/EmployeeSrv?$filter=contains(nameFirst,'Su')
+
+### Filter on child entity
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet?$filter=Items/GROSS_AMOUNT ge 3000
+
+###Call my custom function - to load largest order
+http://localhost:4004/odata/v4/CatalogService/getLargestOrder()
+
+###Call my custom action - since its instance bound we need to pass key, which order you want to boost
+POST http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC2C052/boost
+Content-Type: application/json
+
+{}
+
+### Post Single employee data with more than 1MN salary - Create
+
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSrv
+Content-Type: application/json
+
+{
+
+  "nameFirst": "Test",
+  "nameMiddle": "",
+  "nameLast": "test",
+  "nameInitials": null,
+  "sex": "M",
+  "language": "E",
+  "phoneNumber": "+1 453 543 567 ",
+  "email": "test@itelo.info",
+  "loginName": "FALLF",
+  "Currency_code": "USD",
+  "salaryAmount": 85962,
+  "accountNumber": "8877665544",
+  "bankId": "12100035",
+  "salaryAmount" : 2000000,
+  "bankName": "My Bank of San Francisco"
+}
+
+###Custom Implementation of entity - Read
+http://localhost:4004/odata/v4/MyService/ReadEmployeeSrv
+
+###Custom Implementation of entity - POST
+POST http://localhost:4004/odata/v4/MyService/InsertEmployeeSrv
+Content-Type: application/json
+
+{
+  "ID": "DEMO",
+  "nameFirst": "Rockfeller"
+}
+
