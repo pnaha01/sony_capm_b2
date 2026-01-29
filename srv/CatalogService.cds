@@ -2,7 +2,7 @@
 using { anubhav.db } from '../db/datamodel';
 
 service CatalogService @(path: 'CatalogService') {
-    // Expose my database table as a odata service
+    // Exposee my database table as a odata service
     // CURDQ => Create, Update, Read, Delete & Query Data
     //@readonly
     entity EmployeeSrv as projection on db.master.employees;
